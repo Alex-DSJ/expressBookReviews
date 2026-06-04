@@ -89,6 +89,17 @@ public_users.get('/author/:author',function (req, res) {
     res.send(JSON.stringify(filteredBooks, null, 4));
 });
 
+// Get all books based on title via Axios
+public_users.get('/async/title/:title', async function (req, res) {
+    const title = req.params.title;                                               
+    try {
+      const response = await axios.get(`http://localhost:5000/title/${title}`);   
+      return res.status(200).json(response.data);           
+    } catch (error) {                                                             
+      return res.status(404).json({ message: error.message });
+    }                                                                             
+  }); 
+
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
     const formattedTitleStr = req.params.title.toLowerCase().trim();
