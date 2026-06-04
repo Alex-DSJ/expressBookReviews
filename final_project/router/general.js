@@ -69,6 +69,17 @@ public_users.get('/isbn/:isbn',function (req, res) {
   //Write your code here
   res.send(books[req.params.isbn]);
 });
+
+// Get book details based on author via Axios
+public_users.get('/async/author/:author', async function (req, res) {
+    const author = req.params.author;                                             
+    try {
+      const response = await axios.get(`http://localhost:5000/author/${author}`); 
+      return res.status(200).json(response.data);           
+    } catch (error) {                                                             
+      return res.status(404).json({ message: error.message });
+    }                                                                             
+  }); 
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
